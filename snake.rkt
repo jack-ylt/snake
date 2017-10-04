@@ -93,10 +93,18 @@
 
 (define (keyh s ke)
   (cond
-    [(string=? ke "left") (update-dir1 s (make-dir1 -1 0))]
-    [(string=? ke "right") (update-dir1 s (make-dir1 1 0))]
-    [(string=? ke "up") (update-dir1 s (make-dir1 0 -1))]
-    [(string=? ke "down") (update-dir1 s (make-dir1 0 1))]
+    [(string=? ke "left") (if (equal? (ws-dir1 s) (make-dir1 1 0))
+                              s
+                              (update-dir1 s (make-dir1 -1 0)))]
+    [(string=? ke "right") (if (equal? (ws-dir1 s) (make-dir1 -1 0))
+                              s
+                              (update-dir1 s (make-dir1 1 0)))]
+    [(string=? ke "up") (if (equal? (ws-dir1 s) (make-dir1 0 1))
+                              s
+                              (update-dir1 s (make-dir1 0 -1)))]
+    [(string=? ke "down") (if (equal? (ws-dir1 s) (make-dir1 0 -1))
+                              s
+                              (update-dir1 s (make-dir1 0 1)))]
     [else s]))
 
 ; ws, dir -> ws
